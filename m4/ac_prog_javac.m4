@@ -131,6 +131,9 @@ AC_PROVIDE([$0])dnl
 #   modified version as well.
 AC_DEFUN([AC_PROG_JAVAC],[
 AC_REQUIRE([AC_EXEEXT])dnl
+AC_REQUIRE([AC_CANONICAL_HOST])dnl
+AC_REQUIRE([AC_PROG_CPP])dnl
+AC_LANG_PUSH(C++)dnl
 if test "x$JAVAPREFIX" = x
 then
         test "x$JAVAC" = x && AC_CHECK_PROGS(JAVAC, javac$EXEEXT, no)
@@ -141,5 +144,23 @@ if test ! x$JAVAC = "xno"
 then
  	AC_JAVAC_SUPPORTS_ENUMS
 fi
+
+if test x"`eval 'echo $ac_cv_path_JAVAC'`" != xno ; then
+  AC_PREPROC_IFELSE([AC_LANG_SOURCE([[#include <jni.h>]]) ] ,,[
+    ac_save_CPPFLAGS="$CPPFLAGS"
+changequote(, )dnl
+    ac_dir=`echo $ac_cv_path_JAVAC | sed 's,\(.*\)/[^/]*/[^/]*$,\1/include,'`
+    ac_machdep=`echo $build_os | sed 's,[-0-9].*,,' | sed 's,cygwin,win32,'`
+changequote([, ])dnl
+    JNIFLAGS="-I$ac_dir -I$ac_dir/$ac_machdep"
+    CPPFLAGS="$ac_save_CPPFLAGS $JNIFLAGS"
+    AC_SUBST(JNIFLAGS)
+    AC_PREPROC_IFELSE([AC_LANG_SOURCE([[#include <jni.h>]])],
+               CPPFLAGS="$ac_save_CPPFLAGS",
+               AC_MSG_WARN([unable to include <jni.h>])
+	       JAVAC=no)
+    CPPFLAGS="$ac_save_CPPFLAGS"])
+fi
+AC_LANG_POP(C++)
 AC_PROVIDE([$0])dnl
 ])

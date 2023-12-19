@@ -1096,7 +1096,6 @@ then
   AC_PROG_JAVAC
   AC_PROG_JAVA
   AC_PROG_JAR
-  AC_PROG_JAVAH
 
   ac_save_CPPFLAGS="$CPPFLAGS"
   CPPFLAGS="$CPPFLAGS $JNIFLAGS"
@@ -1128,7 +1127,6 @@ if test x${java_interface_enabled} = xyes \
 && test "x$JAVA" != xno \
 && test "x$ac_cv_javac_supports_enums" != xno \
 && test "x$JAR" != xno \
-&& test "x$JAVAH" != xno \
 && test x${ac_jlong_can_contain_pointers} = xyes
 then
   build_java_interface=yes

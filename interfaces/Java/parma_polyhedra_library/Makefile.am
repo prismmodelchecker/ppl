@@ -211,19 +211,13 @@ $(top_builddir)/interfaces/ppl_interface_instantiations.m4 \
 ../ppl_interface_generator_java_procedure_generators.m4
 
 BUILT_SOURCES = \
-java_classes.stamp \
-java_cxx_headers.stamp
+java_classes.stamp
 
 java_classes.stamp: $(all_java_sources)
 	$(CLASSPATH_ENV) $(JAVAC) -d $(JAVAROOT) \
 		$(AM_JAVACFLAGS) $(JAVACFLAGS) \
+		-h . \
 		$(all_java_sources)
-	echo timestamp >$@
-
-java_cxx_headers.stamp: java_classes.stamp
-	$(JAVAH) -classpath .. \
-                 $(fixed_java_cxx_headers) \
-                 $(required_instantiations_java_cxx_headers)
 	echo timestamp >$@
 
 source_generation.stamp: $(interface_generator_dependencies)
@@ -246,7 +240,6 @@ $(required_instantiations_java_classes) \
 $(required_instantiations_java_cxx_headers_sources) \
 $(fixed_java_cxx_headers_sources) \
 java_classes.stamp \
-java_cxx_headers.stamp \
 source_generation.stamp \
 Termination.java \
 Artificial_Parameter.class \
