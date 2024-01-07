@@ -155,6 +155,7 @@ changequote([, ])dnl
     JNIFLAGS="-I$ac_dir -I$ac_dir/$ac_machdep"
     CPPFLAGS="$ac_save_CPPFLAGS $JNIFLAGS"
     AC_SUBST(JNIFLAGS)
+    AC_SUBST(JAVACFLAGS)
     AC_PREPROC_IFELSE([AC_LANG_SOURCE([[#include <jni.h>]])],
                CPPFLAGS="$ac_save_CPPFLAGS",
                AC_MSG_WARN([unable to include <jni.h>])

@@ -69,7 +69,7 @@ Variable_Output_test1.java \
 PPL_Test.java
 
 CLASSPATH = ../ppl_java.jar:.
-JAVACFLAGS = -classpath $(CLASSPATH)
+# JAVACFLAGS = -classpath $(CLASSPATH)
 
 PPL_DLOPEN = -dlopen ../../../src/libppl.la
 
