@@ -35,6 +35,10 @@ AC_ARG_WITH(gmp-lib,
   AS_HELP_STRING([--with-gmp-lib=DIR],
 		 [search for libgmp/libgmpxx library objects in DIR]))
 
+AC_ARG_WITH(gmp-lib-static,
+  AS_HELP_STRING([--with-gmp-lib-static=FILES],
+		 [statically include FILES for GMP]))
+
 if test -n "$with_gmp"
 then
   gmp_include_options="-I$with_gmp/include"
@@ -53,7 +57,13 @@ then
   gmp_library_options="-L$gmp_library_paths"
 fi
 
-gmp_libs="-lgmpxx -lgmp"
+if test -n "$with_gmp_lib_static"
+then
+  gmp_library_options=
+  gmp_libs="$with_gmp_lib_static"
+else
+  gmp_libs="-lgmpxx -lgmp"
+fi
 
 AC_ARG_WITH(gmp-build,
   AS_HELP_STRING([--with-gmp-build=DIR],
