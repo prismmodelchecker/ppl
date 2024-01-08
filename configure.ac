@@ -907,6 +907,10 @@ fi
 extra_includes="${extra_includes}${extra_includes:+ }${gmp_include_options}"
 extra_libraries="${extra_libraries}${extra_libraries:+ }${gmp_library_options}"
 
+# Override Libtool options
+deplibs_check_method=pass_all
+AC_SUBST([deplibs_check_method])
+
 enableval=yes
 AC_MSG_CHECKING([whether to build the ppl_lcdd program])
 AC_ARG_ENABLE(ppl_lcdd,
